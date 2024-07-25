@@ -1,0 +1,73 @@
+#+title: Curried Functions
+
+* What is Currying?
+** A way of turning a function which takes multiple arguments into a series of functions that each take a single argument and return a single value
+
+* What is Currying used for?
+** Defining Functions with multiple arguments
+** Creating Useful Functions from Partial Applications of Curried Functions
+
+* Standard Approach of Defining Functions with Multiple Arguments
+- Functions can only take 1 argument and return 1 value
+#+begin_src haskell
+add :: (Int, Int) -> Int
+add (x, y) = x + y
+#+end_src
+
+* Curried Approach
+#+begin_src haskell
+c_add :: Int -> (Int -> Int)
+c_add x y = x + y
+#+end_src
+
+* What's the Differences?
+** Function Types
+- Returns a function instead of a value
+** Nothing on a Compiler Level
+
+* Currying Shorthand
+** Type Definition
+#+begin_src
+sum :: Int -> (Int -> (Int -> (Int -> Int)))
+#+end_src
+is the same as:
+#+begin_src
+sum :: Int -> Int -> Int -> Int -> Int
+#+end_src
+
+** Function Application
+#+begin_src
+sum a b c d
+#+end_src
+is actually:
+#+begin_src
+(((sum a) b) c) d
+#+end_src
+
+* Functions are Curried by Default
+** In Haskell
+#+begin_src haskell
+sum a b c d
+#+end_src
+
+** In C
+#+begin_src c
+sum(a, b, c, d)
+#+end_src
+
+** What does this mean?
+*** In Haskell function application goes from left to right
+
+* Partial Application of Curried Functions
+
+- c_add 2 3 ---> (c_add 2) 3
+
+#+begin_src haskell
+c_add_2 = c_add 2
+#+end_src
+
+#+begin_src haskell
+c_add_2 :: Int -> Int
+c_add_2 y = 2 + y
+#+end_src
+
