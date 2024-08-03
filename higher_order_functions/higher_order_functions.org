@@ -1,0 +1,65 @@
+#+title: Higher Order Functions
+
+* What are Higher Order Functions?
+** A function that takes a function as an argument or returns a function as a result
+
+* What are Higher Order Functions used for?
+** Avoiding Repetition (DRY)
+- Avoid similar coding patterns by abstracting them into Higher Order Functions
+** Currying and Partial Application
+- Functions are curried by default
+- Higher Order allow for more readable Partial Applications of Curried Functions
+** Encapsulating Behaviour
+#+begin_src haskell
+apply_twice :: (Int -> Int) -> Int -> Int
+apply_twice f x = f (f x)                 
+#+end_src
+- Passing different functions to alter behaviour without changing any of the program's logic
+#+begin_src haskell
+apply_twice (*2) 5
+> 20
+apply_twice (*3) 5
+> 45
+#+end_src
+
+* Map
+** Definition
+*** Recursive
+#+begin_src haskell
+map :: (a -> b) -> [a] -> [b]
+map f [] = []
+map f (x:xs) = f x : map f xs
+> 1 : 2 : 3 : 4 : []
+[1, 2, 3, 4]
+#+end_src
+*** List Comprehension
+#+begin_src haskell
+map :: (a -> b) -> [a] -> [b]
+map f xs = [f x | x <- xs]
+#+end_src
+** Example
+#+begin_src haskell
+> map (+5) [1..5]
+[6, 7, 8, 9, 10]
+#+end_src
+
+* Filter
+** Definition
+*** List Comprehension
+#+begin_src haskell
+filter :: (a -> Bool) -> [a] -> [a]
+filter f xs = [x | x <- xs, f x]
+#+end_src
+*** Recursive
+#+begin_src haskell
+filter :: (a -> Bool) -> [a] -> [a]
+filter f [] = []
+filter f (x:xs)
+   | f x       = x : filter f xs
+   | otherwise = filter f xs
+#+end_src
+** Example
+#+begin_src haskell
+> filter (\x -> x `mod` 3 == 0) [1..15]
+[3, 6, 9, 12, 15]
+#+end_src

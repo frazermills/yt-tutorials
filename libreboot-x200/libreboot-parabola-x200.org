@@ -1,0 +1,35 @@
+#+title: Libreboot Parabola X200
+
+* Step 1: Installing Arch Linux
+** Follow a standard Arch Linux install
+** Install the software you want and set things up how you like
+* Step 2: Libreboot
+** What you will need
+- Thinkpad x200
+- Flash Chip IC clip adapter
+  - This will either be SOIC16 or SOIC8
+  - You will need to check whether your chip has 8 or 16 pins physically
+    [[./imgs/flashchip.png]]
+- Jumper cables
+  - female to female if you use
+** Steps:
+*** Pre-install
+1. Take of the palm rest and check what bios chip you have
+   - is it an 8 pin or a 16 pin?
+   - what is the code on the bios chip itself
+     - so like "MX3423adfD"
+2. Get something to flash the bios with
+   - a raspberry pi
+   -
+*** Install
+1. Install flashrom
+   #+begin_src sh
+sudo apt install flashrom
+   #+end_src
+2. Take multiple reads of current bios
+   #+begin_src sh
+flashrom --programmer
+   #+end_src
+*** Post-install
+*** Common Problems
+* Step 3: Migrating from Arch to Parabola
