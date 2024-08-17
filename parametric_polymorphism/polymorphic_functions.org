@@ -1,0 +1,80 @@
+#+title: Parametrically Polymorphic Functions
+
+* What is a Parametrically Polymorphic Function?
+** A function that is Parametrically Polymorphic is one that can work with parameters of different data types
+
+* Function Type Definitions
+** Function Types
+- A function is a mapping from the input type to the output type
+** Type Definition Examples
+#+begin_src haskell
+add :: (Int, Int) -> Int
+add (x, y) = x + y
+
+add (9, 3)
+#+end_src
+
+#+RESULTS:
+: 12
+
+* Polymorphic Functions
+** id
+#+begin_src haskell
+id 5
+#+end_src
+
+#+RESULTS:
+: 5
+
+#+begin_src haskell
+id "Frazer"
+#+end_src
+
+#+RESULTS:
+: Frazer
+
+- Returns the inputted value with no change
+*** Definition
+#+begin_src haskell
+id :: a -> a
+id x = x
+#+end_src
+** head
+#+begin_src haskell
+head [1, 2, 3, 4, 5]
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src haskell
+head "Frazer"
+#+end_src
+
+#+RESULTS:
+: F
+
+- Returns the first item of the list
+*** Definition
+#+begin_src haskell
+head :: [a] -> a
+head (x:xs) = x
+#+end_src
+** first
+#+begin_src haskell
+first :: (a, b) -> a
+first (x, y) = x
+first ("Hello", "Frazer")
+#+end_src
+
+#+RESULTS:
+: Hello
+** swap
+#+begin_src haskell
+swap :: (a, b) -> (b, a)
+swap (x, y) = (y, x)
+swap ("Hello", 5)
+#+end_src
+
+#+RESULTS:
+| 5 | Hello |
