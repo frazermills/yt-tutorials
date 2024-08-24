@@ -1,0 +1,75 @@
+#+title: Pattern Matching
+
+* What is Pattern Matching?
+** A way of defining functions by matching cases
+*** Case 1 do this
+*** Case 2 do that
+
+* Why do it?
+** Concise
+** Readable
+#+begin_src haskell
+howMany :: [a] -> String
+howMany [] = "Empty"
+howMany [_] = "Exactly 1 element"
+howMany _ = "More than 1 element"
+#+end_src
+
+* Examples
+** Not
+- logical not
+- inverts the output
+*** Definition
+#+begin_src haskell
+not :: Bool -> Bool
+not False = True
+not True = False
+#+end_src
+** And
+- logical and
+  |-------+-------+-------|
+  | X     | Y     | Q     |
+  |-------+-------+-------|
+  | False | False | False |
+  | False | True  | False |
+  | True  | False | False |
+  | True  | True  | True  |
+  |-------+-------+-------|
+*** Definition
+#+begin_src haskell
+and :: Bool -> Bool -> Bool
+True `and` Y = Y
+False `and` _ = False
+#+end_src
+** Or
+- logical or (inclusive)
+  |-------+-------+-------|
+  | X     | Y     | Q     |
+  |-------+-------+-------|
+  | False | False | False |
+  | False | True  | True  |
+  | True  | False | True  |
+  | True  | True  | True  |
+  |-------+-------+-------|
+*** Definition
+#+begin_src haskell
+or :: Bool -> Bool -> Bool
+True `or` _ = True
+_ `or` True = True
+_ `or` _ = False
+#+end_src
+
+* Tuple Patterns
+#+begin_src haskell
+add :: (Int, Int) -> Int
+add (x, y) = x + y
+#+end_src
+** Basic Add function to demonstrate Pattern Matching
+
+* List Patterns
+#+begin_src haskell
+checkZero :: [Int] -> Bool
+checkZero [0, _, 0, _] = True
+checkZero _ = False
+#+end_src
+** Will check if the first item in a list is 0
