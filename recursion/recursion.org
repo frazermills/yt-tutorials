@@ -1,0 +1,97 @@
+#+title: Recursive Functions
+
+* What is a Recursive Function?
+** What is a Function?
+- Takes a value
+- Transforms it in some way
+- Returns the result
+*** Examples
+**** Increment
+#+begin_src haskell
+inc :: Int -> Int
+inc x = x + 1
+
+inc 0
+#+end_src
+
+#+RESULTS:
+: 1
+
+- Takes value x which is an integer
+- Transforms it by adding 1 to it
+- Returns the result
+**** Add
+#+begin_src haskell
+add :: (Int, Int) -> Int
+add (x, y) = x + y
+#+end_src
+- Takes value (x, y) which is a pair of integers
+  - (x, y) are taken as a single value and later decomposed
+- Transforms it by adding the first and second elements in the pair together
+- Returns the result
+**** Length
+#+begin_src haskell
+length :: [a] -> Int
+length  [] = 0
+length (x:xs) = 1 + length xs
+#+end_src
+- Takes a list of anything ([[https://youtube.com/@frazermills][See Parametric Polymorphism Video]])
+- Transforms it by using it to calculate how many items are in it
+- Returns the result
+** When a function refers to itself in its own definition
+*** Example
+#+begin_src haskell
+callMe :: Int -> ()
+callMe 0 = ()
+callMe n = callMe (n - 1)
+#+end_src
+
+- Takes an integer as an input and doesn't return anything
+- The () is the type of a tuple with not components and is used to mean that the function doesn't return anything
+  - Analogous to void in languages like c
+**** First line defines the function's type
+- A function is a mapping from an input value to an output value
+- Its type is a mapping from the input value's type to the output value's type
+**** Second line defines the 'base' case
+- Also known as stopping / haulting condition for the function
+- Ensures the function is called only n times
+**** Third line defines recursive case
+- Says that `callMe`` n times is the same as calling `callMe` (n - 1) times once
+***** Pattern Matching is an important part of recursive functions([[https://youtube.com/@frazermills][See Pattern Matching Video]])
+- Patterns are matched in order
+- The base case would be matched before the recursive case
+- This prevents infinite recursion
+
+* What does it look like in Haskell?
+** Factorial Function
+#+begin_src haskell
+factorial' :: Int -> Int
+factorial' 0 = 1
+factorial' n = n * factorial' (n - 1)
+#+end_src
+
+** Length Function
+#+begin_src haskell
+length' :: [a] -> Int
+length'  [] = 0
+length' (x:xs) = 1 + length xs
+
+length' [1..7]
+#+end_src
+
+#+RESULTS:
+: 7
+
+#+begin_src haskell
+length' [1,2,3]
+1 + length' [2,3]
+1 + (1 + length' [3])
+1 + (1 + (1 + length' []))
+1 + (1 + (1 + 0))
+1 + (1 + (1))
+1 + (2)
+3
+#+end_src
+
+#+RESULTS:
+| -5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
